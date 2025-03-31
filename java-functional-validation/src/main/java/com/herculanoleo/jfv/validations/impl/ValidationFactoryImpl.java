@@ -1,10 +1,10 @@
-package com.herculanoleo.jfv.factory.impl;
+package com.herculanoleo.jfv.validations.impl;
 
 import br.com.caelum.stella.validation.CNPJValidator;
 import br.com.caelum.stella.validation.CPFValidator;
-import com.herculanoleo.jfv.factory.ValidationFactory;
 import com.herculanoleo.jfv.models.ValidationResult;
 import com.herculanoleo.jfv.validations.Validation;
+import com.herculanoleo.jfv.validations.ValidationFactory;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
@@ -16,13 +16,13 @@ import java.util.regex.Pattern;
 
 public class ValidationFactoryImpl implements ValidationFactory {
 
-    private static final Pattern EMAIL_REGEX = Pattern.compile("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,}$");
+    protected static final Pattern EMAIL_REGEX = Pattern.compile("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,}$");
 
     //Objects
     @Override
     public <T> Validation<T> isNotNull(String message) {
         return (value) -> {
-            if (Objects.nonNull(value)) {
+            if (null != value) {
                 return valid();
             }
             return invalid(message);
@@ -32,7 +32,7 @@ public class ValidationFactoryImpl implements ValidationFactory {
     @Override
     public <T> Validation<T> isNull(String message) {
         return (value) -> {
-            if (Objects.isNull(value)) {
+            if (null == value) {
                 return valid();
             }
             return invalid(message);
@@ -73,7 +73,7 @@ public class ValidationFactoryImpl implements ValidationFactory {
     @Override
     public Validation<String> lengthEq(Integer length, String message) {
         return (value) -> {
-            if (StringUtils.defaultString(value).length() == length || StringUtils.defaultString(value).isEmpty()) {
+            if (StringUtils.defaultString(value).length() == length) {
                 return valid();
             }
             return invalid(message);
@@ -83,7 +83,7 @@ public class ValidationFactoryImpl implements ValidationFactory {
     @Override
     public Validation<String> lengthMin(Integer length, String message) {
         return (value) -> {
-            if (StringUtils.defaultString(value).length() >= length || StringUtils.defaultString(value).isEmpty()) {
+            if (StringUtils.defaultString(value).length() >= length) {
                 return valid();
             }
             return invalid(message);
@@ -93,7 +93,7 @@ public class ValidationFactoryImpl implements ValidationFactory {
     @Override
     public Validation<String> lengthMax(Integer length, String message) {
         return (value) -> {
-            if (StringUtils.defaultString(value).length() <= length || StringUtils.defaultString(value).isEmpty()) {
+            if (StringUtils.defaultString(value).length() <= length) {
                 return valid();
             }
             return invalid(message);
@@ -351,7 +351,9 @@ public class ValidationFactoryImpl implements ValidationFactory {
                     return invalid(message);
                 }
 
-                if (!new CPFValidator().isEligible(doc)) {
+                try {
+                    new CPFValidator().assertValid(doc);
+                }catch (Exception e) {
                     return invalid(message);
                 }
             }
@@ -368,7 +370,9 @@ public class ValidationFactoryImpl implements ValidationFactory {
                     return invalid(message);
                 }
 
-                if (!new CNPJValidator().isEligible(doc)) {
+                try {
+                    new CNPJValidator().assertValid(doc);
+                }catch (Exception e) {
                     return invalid(message);
                 }
             }

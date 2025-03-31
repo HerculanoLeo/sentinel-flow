@@ -1,8 +1,7 @@
 package com.herculanoleo.jfv.validator;
 
 import com.herculanoleo.jfv.exceptions.ValidatorException;
-import com.herculanoleo.jfv.factory.ValidationFactory;
-import com.herculanoleo.jfv.factory.ValidatorFactory;
+import com.herculanoleo.jfv.validations.ValidationFactory;
 
 @FunctionalInterface
 public interface Validate {

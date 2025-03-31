@@ -13,9 +13,9 @@ import java.util.function.Function;
 
 public abstract class ValidatorAbstraction<E> implements Validator<E> {
 
-    private final E value;
+    protected final E value;
 
-    private final List<ValidatorField<?>> validatorFields = new LinkedList<>();
+    protected final List<ValidatorField<?>> validatorFields = new LinkedList<>();
 
     public ValidatorAbstraction(E value) {
         this.value = value;

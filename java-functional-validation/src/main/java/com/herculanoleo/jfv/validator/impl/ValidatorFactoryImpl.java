@@ -1,8 +1,7 @@
-package com.herculanoleo.jfv.factory.impl;
+package com.herculanoleo.jfv.validator.impl;
 
-import com.herculanoleo.jfv.factory.ValidatorFactory;
+import com.herculanoleo.jfv.validator.ValidatorFactory;
 import com.herculanoleo.jfv.validator.Validator;
-import com.herculanoleo.jfv.validator.impl.ValidatorImpl;
 
 public class ValidatorFactoryImpl implements ValidatorFactory {
 

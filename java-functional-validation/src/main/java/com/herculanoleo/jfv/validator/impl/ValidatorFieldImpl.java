@@ -27,7 +27,7 @@ public class ValidatorFieldImpl<V> implements ValidatorField<V> {
     }
 
     public Result<V> build() {
-        var results = this.validations.stream()
+        var results = this.validations.parallelStream()
                 .map(validation -> validation.validate(field.value()))
                 .toList();
         return new Result<>(field, results);

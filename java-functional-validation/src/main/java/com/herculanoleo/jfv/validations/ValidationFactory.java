@@ -1,7 +1,6 @@
-package com.herculanoleo.jfv.factory;
+package com.herculanoleo.jfv.validations;
 
 import com.herculanoleo.jfv.models.ValidationResult;
-import com.herculanoleo.jfv.validations.Validation;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
