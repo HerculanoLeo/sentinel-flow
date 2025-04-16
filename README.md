@@ -48,6 +48,8 @@ implementation 'com.herculanoleo:sentinel-flow:X.Y.Z'
 ```
 *(Note: Replace X.Y.Z with the latest library version.)*
 
+To download the dependency using GitHub packages, follow these steps: [Working with the Apache Maven registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry) 
+
 ## How to Use (Traditional Java Application)
 
 Validation is performed through the `Validate` interface, which is a `@FunctionalInterface`. You implement the validation logic using the `ValidatorFactory` and `ValidationFactory` factories.n an application without a dependency injection framework, you can instantiate the default implementations directly.
