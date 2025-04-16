@@ -135,8 +135,8 @@
         </repository>
 
         <repository>
-            <id>github-java-functional-validation</id>
-            <url>https://maven.pkg.github.com/herculanoleo/java-functional-validation/</url>
+            <id>github-packages</id>
+            <url>https://maven.pkg.github.com/herculanoleo/sentinel-flow/</url>
         </repository>
 
         <repository>
@@ -150,8 +150,8 @@
             <id>github</id>
             <distributionManagement>
                 <repository>
-                    <id>github-java-functional-validation</id>
-                    <url>https://maven.pkg.github.com/herculanoleo/java-functional-validation/</url>
+                    <id>github-packages</id>
+                    <url>https://maven.pkg.github.com/herculanoleo/sentinel-flow/</url>
                 </repository>
             </distributionManagement>
         </profile>
