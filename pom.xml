@@ -32,8 +32,9 @@
     </build>
 
     <modules>
-        <module>java-functional-validation</module>
+        <module>sentinel-flow</module>
         <!-- TEST MODULE -->
+        <module>spring-example</module>
     </modules>
 
     <repositories>

@@ -38,14 +38,14 @@ Adicione a dependência ao seu projeto.
 ```xml
 <dependency> 
     <groupId>com.herculanoleo</groupId> 
-    <artifactId>java-functional-validation</artifactId> 
+    <artifactId>sentinel-flow</artifactId> 
     <version>X.Y.Z</version> 
 </dependency>
 ```
 
 **Gradle:**
 ```groovy
-implementation 'com.herculanoleo:java-functional-validation:X.Y.Z'
+implementation 'com.herculanoleo:sentinel-flow:X.Y.Z'
 ```
 *(Nota: Substitua `X.Y.Z` pela versão mais recente da biblioteca.)*
 
@@ -64,41 +64,41 @@ public record UserRegistrationDTO(String name, String email, String password, in
 Você pode definir e executar a validação da seguinte forma:
 
 ```java
-import com.herculanoleo.jfv.validator.Validate; 
-import com.herculanoleo.jfv.validator.ValidatorFactory; 
-import com.herculanoleo.jfv.validations.ValidationFactory; 
-import com.herculanoleo.jfv.exceptions.ValidatorException; 
+import com.herculanoleo.sentinelflow.validator.Validate;
+import com.herculanoleo.sentinelflow.validator.ValidatorFactory;
+import com.herculanoleo.sentinelflow.validations.ValidationFactory;
+import com.herculanoleo.sentinelflow.exceptions.ValidatorException;
 // Importe as implementações padrão 
-import com.herculanoleo.jfv.validator.impl.ValidatorFactoryImpl; 
-import com.herculanoleo.jfv.validations.impl.ValidationFactoryImpl;
+import com.herculanoleo.sentinelflow.validator.impl.ValidatorFactoryImpl;
+import com.herculanoleo.sentinelflow.validations.impl.ValidationFactoryImpl;
 
 public class UserRegistrationValidator {
-    
+
     // Instancia as fábricas (em apps maiores, considere um local centralizado para isso)
     private final ValidatorFactory validatorFactory = new ValidatorFactoryImpl();
-    
+
     private final ValidationFactory validationFactory = new ValidationFactoryImpl();
-    
+
     public void validateUser(UserRegistrationDTO dto) throws ValidatorException {
         // Cria a lógica de validação como uma lambda
         Validate validationLogic = (validator, validations) -> {
             validator.create(dto)
-                .field("name", dto.name()) // Define o campo a ser validado
+                    .field("name", dto.name()) // Define o campo a ser validado
                     .add(validations.isNotBlank("O nome não pode estar em branco.")) // Adiciona regras
                     .add(validations.lengthMin(3, "O nome deve ter pelo menos 3 caracteres."))
-                .end() // Finaliza a definição para este campo
-                .field("email", dto.email())
+                    .end() // Finaliza a definição para este campo
+                    .field("email", dto.email())
                     .add(validations.isNotBlank("O e-mail não pode estar em branco."))
                     .add(validations.email("O formato do e-mail é inválido."))
-                .end()
-                .field("password", dto.password())
+                    .end()
+                    .field("password", dto.password())
                     .add(validations.isNotBlank("A senha não pode estar em branco."))
                     .add(validations.lengthMin(8, "A senha deve ter pelo menos 8 caracteres."))
-                .end()
-                .field("age", dto.age())
+                    .end()
+                    .field("age", dto.age())
                     .add(validations.min(18, "A idade mínima é 18 anos."))
-                .end()
-                .validate(); // Executa todas as validações definidas
+                    .end()
+                    .validate(); // Executa todas as validações definidas
         };
         // Executa a validação passando as instâncias das fábricas
         try {
@@ -107,13 +107,13 @@ public class UserRegistrationValidator {
         } catch (ValidatorException e) {
             System.err.println("Falha na validação do DTO:");
             e.getErrors().forEach(error ->
-                System.err.println("- Campo: " + error.fieldName() + ", Erro: " + error.message())
+                    System.err.println("- Campo: " + error.fieldName() + ", Erro: " + error.message())
             );
             // Re-lançar ou tratar a exceção conforme a necessidade da sua aplicação
             throw e;
         }
     }
-    
+
     // Exemplo de como chamar a validação
     public static void main(String[] args) {
         // DTO com dados válidos
@@ -125,15 +125,15 @@ public class UserRegistrationValidator {
         try {
             validator.validateUser(validUser);
         } catch (ValidatorException e) {
-             // Não esperado neste caso
-             System.err.println("Erro inesperado ao validar usuário válido: " + e.getMessage());
+            // Não esperado neste caso
+            System.err.println("Erro inesperado ao validar usuário válido: " + e.getMessage());
         }
         System.out.println("\n--- Validando usuário inválido ---");
         try {
             validator.validateUser(invalidUser);
         } catch (ValidatorException e) {
-             // Erro esperado, as mensagens já foram impressas dentro do método validateUser
-             System.out.println("Validação do usuário inválido falhou como esperado.");
+            // Erro esperado, as mensagens já foram impressas dentro do método validateUser
+            System.out.println("Validação do usuário inválido falhou como esperado.");
         }
     }
 }
@@ -158,18 +158,22 @@ Este exemplo mostra o uso básico em um cenário sem frameworks complexos, focan
 Crie uma classe de configuração para registrar as implementações das fábricas no contexto do Spring.
 
 ```java
-import com.herculanoleo.jfv.validator.ValidatorFactory; import com.herculanoleo.jfv.validator.impl.ValidatorFactoryImpl; import com.herculanoleo.jfv.validations.ValidationFactory; import com.herculanoleo.jfv.validations.impl.ValidationFactoryImpl; import org.springframework.context.annotation.Bean; 
+import com.herculanoleo.sentinelflow.validator.ValidatorFactory;
+import com.herculanoleo.sentinelflow.validator.impl.ValidatorFactoryImpl;
+import com.herculanoleo.sentinelflow.validations.ValidationFactory;
+import com.herculanoleo.sentinelflow.validations.impl.ValidationFactoryImpl;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration 
+@Configuration
 public class ValidationConfig {
-    
+
     @Bean
     public ValidationFactory validationFactory() {
         // Retorna a implementação padrão da fábrica de regras
         return new ValidationFactoryImpl();
     }
-    
+
     @Bean
     public ValidatorFactory validatorFactory() {
         // Retorna a implementação padrão da fábrica de validadores
@@ -184,45 +188,45 @@ public class ValidationConfig {
 Agora você pode injetar as fábricas em seus serviços ou outros componentes Spring e usar a interface `Validate` para definir e executar a lógica de validação.
 
 ```java 
-import com.herculanoleo.jfv.validator.Validate; 
-import com.herculanoleo.jfv.validator.ValidatorFactory; 
-import com.herculanoleo.jfv.validations.ValidationFactory; 
-import com.herculanoleo.jfv.exceptions.ValidatorException; 
+import com.herculanoleo.sentinelflow.validator.Validate;
+import com.herculanoleo.sentinelflow.validator.ValidatorFactory;
+import com.herculanoleo.sentinelflow.validations.ValidationFactory;
+import com.herculanoleo.sentinelflow.exceptions.ValidatorException;
 import org.springframework.stereotype.Service;
 // Supondo que UserRegistrationDTO exista // 
 import com.yourpackage.dto.UserRegistrationDTO;
 
-@Service 
+@Service
 public class UserService {
-    
+
     private final ValidatorFactory validatorFactory;
-    
+
     private final ValidationFactory validationFactory;
-    
+
     // Injeção de dependência via construtor (recomendado)
     public UserService(ValidatorFactory validatorFactory, ValidationFactory validationFactory) {
         this.validatorFactory = validatorFactory;
         this.validationFactory = validationFactory;
     }
-    
+
     public void registerUser(UserRegistrationDTO dto) {
         // Define a lógica de validação específica para este método/caso de uso
         // A lambda recebe as fábricas que serão usadas internamente.
         Validate userValidationLogic = (validator, validations) -> {
             validator.create(dto) // Usa a fábrica injetada
-                .field("name", dto.name())
+                    .field("name", dto.name())
                     .add(validations.isNotBlank("O nome é obrigatório.")) // Usa a fábrica injetada
                     .add(validations.lengthMin(3, "Nome muito curto."))
-                .end()
-                .field("email", dto.email())
+                    .end()
+                    .field("email", dto.email())
                     .add(validations.isNotBlank("O e-mail é obrigatório."))
                     .add(validations.email("Formato de e-mail inválido."))
-                .end()
-                .field("age", dto.age())
+                    .end()
+                    .field("age", dto.age())
                     .add(validations.min(18, "Deve ser maior de idade."))
-                .end()
-                // ... outras validações complexas ou de negócio
-                .validate(); // Executa a validação
+                    .end()
+                    // ... outras validações complexas ou de negócio
+                    .validate(); // Executa a validação
         };
         try {
             // Executa a validação usando os beans injetados
