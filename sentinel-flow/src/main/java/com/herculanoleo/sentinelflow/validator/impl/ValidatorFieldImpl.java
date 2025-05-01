@@ -8,6 +8,12 @@ import com.herculanoleo.sentinelflow.validator.ValidatorField;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * The `ValidatorFieldImpl` class is a concrete implementation of the {@link ValidatorField} interface, responsible for managing and validating fields of type V.
+ * It provides methods to add validations to be performed on the field and to build the result containing all validation outcomes.
+ *
+ * @param <V> the type of the value contained in the field
+ */
 public class ValidatorFieldImpl<V> implements ValidatorField<V> {
 
     private final Field<V> field;

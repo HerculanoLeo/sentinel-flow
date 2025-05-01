@@ -7,6 +7,10 @@ import com.herculanoleo.sentinelflow.validator.ValidatorField;
 
 import java.util.Objects;
 
+/**
+ * The `ValidatorAddValidationImpl` class is a concrete implementation of the {@link ValidatorAddValidation} interface.
+ * It provides methods to add validations and build a final {@link Validator}. This class is responsible for chaining multiple validations on a specific field.
+ */
 public class ValidatorAddValidationImpl<E, V> implements ValidatorAddValidation<E, V> {
 
     private final Validator<E> validator;
