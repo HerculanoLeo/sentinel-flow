@@ -30,25 +30,75 @@ It promotes a more readable and expressive coding style for validations through 
 
 Requires **Java 17** or higher.
 
-Add the dependency to your project.
+The library is available on [GitHub Packages](https://github.com/HerculanoLeo/sentinel-flow/packages).
 
-**Maven:**
+### Maven
+
+**1. Configure authentication** in `~/.m2/settings.xml`:
 
 ```xml
-<dependency> 
-    <groupId>com.herculanoleo</groupId> 
-    <artifactId>sentinel-flow</artifactId> 
-    <version>X.Y.Z</version> 
+<settings>
+  <servers>
+    <server>
+      <id>github-packages</id>
+      <username>YOUR_GITHUB_USERNAME</username>
+      <password>YOUR_GITHUB_TOKEN</password>
+    </server>
+  </servers>
+</settings>
+```
+
+Use a [Personal Access Token](https://github.com/settings/tokens) with at least the `read:packages` scope. For private repositories, also include `repo`.
+
+**2. Add the repository** to your `pom.xml`:
+
+```xml
+<repositories>
+  <repository>
+    <id>github-packages</id>
+    <url>https://maven.pkg.github.com/HerculanoLeo/sentinel-flow</url>
+  </repository>
+</repositories>
+```
+
+**3. Add the dependency:**
+
+```xml
+<dependency>
+  <groupId>com.herculanoleo</groupId>
+  <artifactId>sentinel-flow</artifactId>
+  <version>X.Y.Z</version>
 </dependency>
 ```
 
-**Gradle:**
-```groovy
-implementation 'com.herculanoleo:sentinel-flow:X.Y.Z'
-```
-*(Note: Replace X.Y.Z with the latest library version.)*
+### Gradle
 
-To download the dependency using GitHub packages, follow these steps: [Working with the Apache Maven registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry) 
+**1. Configure authentication** in `~/.gradle/gradle.properties`:
+
+```properties
+gpr.user=YOUR_GITHUB_USERNAME
+gpr.key=YOUR_GITHUB_TOKEN
+```
+
+**2. Add the repository and dependency** in `build.gradle`:
+
+```groovy
+repositories {
+    maven {
+        url = uri("https://maven.pkg.github.com/HerculanoLeo/sentinel-flow")
+        credentials {
+            username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
+            password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+        }
+    }
+}
+
+dependencies {
+    implementation "com.herculanoleo:sentinel-flow:X.Y.Z"
+}
+```
+
+Replace `X.Y.Z` with the version from the [Releases](https://github.com/HerculanoLeo/sentinel-flow/releases) page.
 
 ## Available Validations
 
