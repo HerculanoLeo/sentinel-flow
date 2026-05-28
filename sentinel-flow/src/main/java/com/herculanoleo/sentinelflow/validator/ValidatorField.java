@@ -12,13 +12,25 @@ import org.apache.commons.lang3.StringUtils;
  */
 public interface ValidatorField<V> {
 
-    /** @return the field metadata and captured value */
+    /**
+     * Returns the field metadata and captured value.
+     *
+     * @return the field metadata and captured value
+     */
     Field<V> getField();
 
-    /** Adds a validation rule to this field. */
+    /**
+     * Adds a validation rule to this field.
+     *
+     * @param validation rule to apply
+     */
     void addValidation(Validation<V> validation);
 
-    /** Runs all rules and returns the aggregated result. */
+    /**
+     * Runs all rules and returns the aggregated result.
+     *
+     * @return aggregated validation result for this field
+     */
     Result<V> build();
 
     /**

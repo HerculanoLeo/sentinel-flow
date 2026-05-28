@@ -8,6 +8,9 @@ import com.herculanoleo.sentinelflow.models.Field;
 public class ValidatorFieldAddedException extends RuntimeException {
 
     /**
+     * Creates an exception for a duplicate field registration.
+     *
+     * @param <V>   field value type
      * @param field field that was already added
      */
     public <V> ValidatorFieldAddedException(Field<V> field) {

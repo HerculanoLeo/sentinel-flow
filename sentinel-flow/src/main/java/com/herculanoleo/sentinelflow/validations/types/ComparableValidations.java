@@ -11,7 +11,14 @@ import com.herculanoleo.sentinelflow.validations.ValidationSupport;
  */
 public interface ComparableValidations extends ValidationSupport {
 
-    /** Validates that the value is equal to the expected value. */
+    /**
+     * Validates that the value is equal to the expected value.
+     *
+     * @param <T>     comparable value type
+     * @param eq      expected value
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default <T extends Comparable<T>> Validation<T> comparableEq(T eq, String message) {
         return value -> {
             if (null != value && eq.compareTo(value) == 0) {
@@ -21,7 +28,14 @@ public interface ComparableValidations extends ValidationSupport {
         };
     }
 
-    /** Validates that the value is greater than or equal to the minimum. */
+    /**
+     * Validates that the value is greater than or equal to the minimum.
+     *
+     * @param <T>     comparable value type
+     * @param min     minimum inclusive value
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default <T extends Comparable<T>> Validation<T> comparableMin(T min, String message) {
         return value -> {
             if (null == value || value.compareTo(min) >= 0) {
@@ -31,7 +45,14 @@ public interface ComparableValidations extends ValidationSupport {
         };
     }
 
-    /** Validates that the value is less than or equal to the maximum. */
+    /**
+     * Validates that the value is less than or equal to the maximum.
+     *
+     * @param <T>     comparable value type
+     * @param max     maximum inclusive value
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default <T extends Comparable<T>> Validation<T> comparableMax(T max, String message) {
         return value -> {
             if (null == value || value.compareTo(max) <= 0) {
@@ -41,7 +62,15 @@ public interface ComparableValidations extends ValidationSupport {
         };
     }
 
-    /** Validates that the value is within the inclusive range. */
+    /**
+     * Validates that the value is within the inclusive range.
+     *
+     * @param <T>     comparable value type
+     * @param min     minimum inclusive value
+     * @param max     maximum inclusive value
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default <T extends Comparable<T>> Validation<T> comparableBetween(T min, T max, String message) {
         return value -> {
             if (null == value || (value.compareTo(min) >= 0 && value.compareTo(max) <= 0)) {

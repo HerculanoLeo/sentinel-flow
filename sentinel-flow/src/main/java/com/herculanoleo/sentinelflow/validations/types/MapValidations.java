@@ -10,7 +10,14 @@ import java.util.Map;
  */
 public interface MapValidations extends ValidationSupport {
 
-    /** Validates the exact number of map entries. */
+    /**
+     * Validates the exact number of map entries.
+     *
+     * @param <T>     map type
+     * @param size    expected entry count
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default <T extends Map<?, ?>> Validation<T> mapSizeEq(Integer size, String message) {
         return value -> {
             if (null == value || value.size() == size) {
@@ -20,7 +27,14 @@ public interface MapValidations extends ValidationSupport {
         };
     }
 
-    /** Validates the minimum number of map entries. */
+    /**
+     * Validates the minimum number of map entries.
+     *
+     * @param <T>     map type
+     * @param min     minimum entry count
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default <T extends Map<?, ?>> Validation<T> mapSizeMin(Integer min, String message) {
         return value -> {
             if (null == value || value.size() >= min) {
@@ -30,7 +44,14 @@ public interface MapValidations extends ValidationSupport {
         };
     }
 
-    /** Validates the maximum number of map entries. */
+    /**
+     * Validates the maximum number of map entries.
+     *
+     * @param <T>     map type
+     * @param max     maximum entry count
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default <T extends Map<?, ?>> Validation<T> mapSizeMax(Integer max, String message) {
         return value -> {
             if (null == value || value.size() <= max) {

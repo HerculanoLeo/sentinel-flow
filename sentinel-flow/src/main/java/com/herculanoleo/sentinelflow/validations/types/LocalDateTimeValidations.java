@@ -10,7 +10,13 @@ import java.time.LocalDateTime;
  */
 public interface LocalDateTimeValidations extends ValidationSupport {
 
-    /** Validates that the date-time is equal to the expected value. */
+    /**
+     * Validates that the date-time is equal to the expected value.
+     *
+     * @param eq      expected value
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<LocalDateTime> eq(LocalDateTime eq, String message) {
         return value -> {
             if (null != value && eq.isEqual(value)) {
@@ -20,7 +26,13 @@ public interface LocalDateTimeValidations extends ValidationSupport {
         };
     }
 
-    /** Validates that the date-time is on or after the minimum. */
+    /**
+     * Validates that the date-time is on or after the minimum.
+     *
+     * @param min     minimum inclusive value
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<LocalDateTime> min(LocalDateTime min, String message) {
         return value -> {
             if (null == value || value.isAfter(min) || value.isEqual(min)) {
@@ -30,7 +42,13 @@ public interface LocalDateTimeValidations extends ValidationSupport {
         };
     }
 
-    /** Validates that the date-time is on or before the maximum. */
+    /**
+     * Validates that the date-time is on or before the maximum.
+     *
+     * @param max     maximum inclusive value
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<LocalDateTime> max(LocalDateTime max, String message) {
         return value -> {
             if (null == value || value.isBefore(max) || value.isEqual(max)) {
@@ -40,7 +58,14 @@ public interface LocalDateTimeValidations extends ValidationSupport {
         };
     }
 
-    /** Validates that the date-time is within the inclusive range. */
+    /**
+     * Validates that the date-time is within the inclusive range.
+     *
+     * @param min     minimum inclusive value
+     * @param max     maximum inclusive value
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<LocalDateTime> between(LocalDateTime min, LocalDateTime max, String message) {
         return value -> {
             if (null == value || (!value.isBefore(min) && !value.isAfter(max))) {
@@ -50,7 +75,12 @@ public interface LocalDateTimeValidations extends ValidationSupport {
         };
     }
 
-    /** Validates that the date-time is before now. */
+    /**
+     * Validates that the date-time is before now.
+     *
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<LocalDateTime> isPastDateTime(String message) {
         return value -> {
             if (null == value || value.isBefore(LocalDateTime.now())) {
@@ -60,7 +90,12 @@ public interface LocalDateTimeValidations extends ValidationSupport {
         };
     }
 
-    /** Validates that the date-time is after now. */
+    /**
+     * Validates that the date-time is after now.
+     *
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<LocalDateTime> isFutureDateTime(String message) {
         return value -> {
             if (null == value || value.isAfter(LocalDateTime.now())) {

@@ -10,7 +10,14 @@ import java.util.Collection;
  */
 public interface CollectionValidations extends ValidationSupport {
 
-    /** Validates the exact collection size. */
+    /**
+     * Validates the exact collection size.
+     *
+     * @param <T>     collection type
+     * @param size    expected size
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default <T extends Collection<?>> Validation<T> sizeEq(Integer size, String message) {
         return value -> {
             if (null == value || value.size() == size) {
@@ -20,7 +27,14 @@ public interface CollectionValidations extends ValidationSupport {
         };
     }
 
-    /** Validates the minimum collection size. */
+    /**
+     * Validates the minimum collection size.
+     *
+     * @param <T>     collection type
+     * @param min     minimum size
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default <T extends Collection<?>> Validation<T> sizeMin(Integer min, String message) {
         return value -> {
             if (null == value || value.size() >= min) {
@@ -30,7 +44,14 @@ public interface CollectionValidations extends ValidationSupport {
         };
     }
 
-    /** Validates the maximum collection size. */
+    /**
+     * Validates the maximum collection size.
+     *
+     * @param <T>     collection type
+     * @param max     maximum size
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default <T extends Collection<?>> Validation<T> sizeMax(Integer max, String message) {
         return value -> {
             if (null == value || value.size() <= max) {
@@ -40,7 +61,13 @@ public interface CollectionValidations extends ValidationSupport {
         };
     }
 
-    /** Validates that the collection is empty. */
+    /**
+     * Validates that the collection is empty.
+     *
+     * @param <T>     collection type
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default <T extends Collection<?>> Validation<T> isEmpty(String message) {
         return value -> {
             if (null == value || value.isEmpty()) {
@@ -50,7 +77,13 @@ public interface CollectionValidations extends ValidationSupport {
         };
     }
 
-    /** Validates that the collection is not empty. */
+    /**
+     * Validates that the collection is not empty.
+     *
+     * @param <T>     collection type
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default <T extends Collection<?>> Validation<T> isNotEmpty(String message) {
         return value -> {
             if (null == value || !value.isEmpty()) {
@@ -60,7 +93,15 @@ public interface CollectionValidations extends ValidationSupport {
         };
     }
 
-    /** Validates that the collection contains the given element. */
+    /**
+     * Validates that the collection contains the given element.
+     *
+     * @param <C>     collection type
+     * @param <E>     element type
+     * @param element expected element
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default <C extends Collection<E>, E> Validation<C> contains(E element, String message) {
         return value -> {
             if (null == value || value.contains(element)) {

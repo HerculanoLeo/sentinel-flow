@@ -20,7 +20,12 @@ import static com.herculanoleo.sentinelflow.validations.types.StringValidationUt
  */
 public interface StringValidations extends ValidationSupport {
 
-    /** Validates that the string is not blank. */
+    /**
+     * Validates that the string is not blank.
+     *
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<String> isNotBlank(String message) {
         return value -> {
             if (StringUtils.isNotBlank(value)) {
@@ -30,7 +35,12 @@ public interface StringValidations extends ValidationSupport {
         };
     }
 
-    /** Validates that the string is blank or {@code null}. */
+    /**
+     * Validates that the string is blank or {@code null}.
+     *
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<String> isBlank(String message) {
         return value -> {
             if (StringUtils.isBlank(value)) {
@@ -40,7 +50,13 @@ public interface StringValidations extends ValidationSupport {
         };
     }
 
-    /** Validates the exact string length. */
+    /**
+     * Validates the exact string length.
+     *
+     * @param length  expected length
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<String> lengthEq(Integer length, String message) {
         return value -> {
             if (StringUtils.defaultString(value).length() == length) {
@@ -50,7 +66,13 @@ public interface StringValidations extends ValidationSupport {
         };
     }
 
-    /** Validates the minimum string length. */
+    /**
+     * Validates the minimum string length.
+     *
+     * @param length  minimum length
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<String> lengthMin(Integer length, String message) {
         return value -> {
             if (StringUtils.defaultString(value).length() >= length) {
@@ -60,7 +82,13 @@ public interface StringValidations extends ValidationSupport {
         };
     }
 
-    /** Validates the maximum string length. */
+    /**
+     * Validates the maximum string length.
+     *
+     * @param length  maximum length
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<String> lengthMax(Integer length, String message) {
         return value -> {
             if (StringUtils.defaultString(value).length() <= length) {
@@ -70,7 +98,12 @@ public interface StringValidations extends ValidationSupport {
         };
     }
 
-    /** Validates a standard email format. */
+    /**
+     * Validates a standard email format.
+     *
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<String> email(String message) {
         return value -> {
             if (StringUtils.isBlank(value) || EMAIL_REGEX.matcher(value).matches()) {
@@ -80,7 +113,12 @@ public interface StringValidations extends ValidationSupport {
         };
     }
 
-    /** Validates that the string contains digits only. */
+    /**
+     * Validates that the string contains digits only.
+     *
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<String> onlyNumbers(String message) {
         return value -> {
             var original = StringUtils.defaultString(value);
@@ -94,7 +132,12 @@ public interface StringValidations extends ValidationSupport {
         };
     }
 
-    /** Validates a URL with scheme and host. */
+    /**
+     * Validates a URL with scheme and host.
+     *
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<String> url(String message) {
         return value -> {
             if (StringUtils.isBlank(value) || StringValidationUtils.isValidUrl(value)) {
@@ -104,7 +147,12 @@ public interface StringValidations extends ValidationSupport {
         };
     }
 
-    /** Validates an HTTPS URL. */
+    /**
+     * Validates an HTTPS URL.
+     *
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<String> https(String message) {
         return value -> {
             if (StringUtils.isBlank(value) || StringValidationUtils.isValidHttps(value)) {
@@ -159,12 +207,23 @@ public interface StringValidations extends ValidationSupport {
         };
     }
 
-    /** Validates that the string matches the given regex. */
+    /**
+     * Validates that the string matches the given regex.
+     *
+     * @param pattern regex pattern
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<String> regex(String pattern, String message) {
         return matches(Pattern.compile(pattern), message);
     }
 
-    /** Validates a UUID string. */
+    /**
+     * Validates a UUID string.
+     *
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<String> uuid(String message) {
         return value -> {
             if (StringUtils.isBlank(value) || StringValidationUtils.isValidUuid(value)) {
@@ -174,22 +233,42 @@ public interface StringValidations extends ValidationSupport {
         };
     }
 
-    /** Validates letters only (A–Z, a–z). */
+    /**
+     * Validates letters only (A-Z, a-z).
+     *
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<String> alpha(String message) {
         return matches(ALPHA_REGEX, message);
     }
 
-    /** Validates letters and digits only. */
+    /**
+     * Validates letters and digits only.
+     *
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<String> alphaNumeric(String message) {
         return matches(ALPHA_NUMERIC_REGEX, message);
     }
 
-    /** Validates a kebab-case slug. */
+    /**
+     * Validates a kebab-case slug.
+     *
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<String> slug(String message) {
         return matches(SLUG_REGEX, message);
     }
 
-    /** Validates an IPv4 or IPv6 address. */
+    /**
+     * Validates an IPv4 or IPv6 address.
+     *
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<String> ipAddress(String message) {
         return value -> {
             if (StringUtils.isBlank(value) || StringValidationUtils.isValidIpAddress(value)) {

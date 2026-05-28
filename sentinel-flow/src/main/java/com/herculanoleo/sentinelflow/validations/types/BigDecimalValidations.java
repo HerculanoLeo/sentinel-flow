@@ -28,7 +28,13 @@ public interface BigDecimalValidations extends ValidationSupport {
         };
     }
 
-    /** @see IntegerValidations#min(Integer, String) */
+    /**
+     * Validates that the value is greater than or equal to the minimum.
+     *
+     * @param min     minimum inclusive value
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<BigDecimal> min(BigDecimal min, String message) {
         return value -> {
             if (null == value || value.compareTo(min) >= 0) {
@@ -38,7 +44,13 @@ public interface BigDecimalValidations extends ValidationSupport {
         };
     }
 
-    /** @see IntegerValidations#max(Integer, String) */
+    /**
+     * Validates that the value is less than or equal to the maximum.
+     *
+     * @param max     maximum inclusive value
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<BigDecimal> max(BigDecimal max, String message) {
         return value -> {
             if (null == value || value.compareTo(max) <= 0) {
@@ -48,7 +60,14 @@ public interface BigDecimalValidations extends ValidationSupport {
         };
     }
 
-    /** @see IntegerValidations#between(Integer, Integer, String) */
+    /**
+     * Validates that the value is within the inclusive range.
+     *
+     * @param min     minimum inclusive value
+     * @param max     maximum inclusive value
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<BigDecimal> between(BigDecimal min, BigDecimal max, String message) {
         return value -> {
             if (null == value || (value.compareTo(min) >= 0 && value.compareTo(max) <= 0)) {
@@ -58,7 +77,13 @@ public interface BigDecimalValidations extends ValidationSupport {
         };
     }
 
-    /** @see IntegerValidations#gt(Integer, String) */
+    /**
+     * Validates that the value is greater than the threshold.
+     *
+     * @param threshold threshold value
+     * @param message   error message when validation fails
+     * @return validation rule
+     */
     default Validation<BigDecimal> gt(BigDecimal threshold, String message) {
         return value -> {
             if (null == value || value.compareTo(threshold) > 0) {
@@ -68,7 +93,13 @@ public interface BigDecimalValidations extends ValidationSupport {
         };
     }
 
-    /** @see IntegerValidations#lt(Integer, String) */
+    /**
+     * Validates that the value is less than the threshold.
+     *
+     * @param threshold threshold value
+     * @param message   error message when validation fails
+     * @return validation rule
+     */
     default Validation<BigDecimal> lt(BigDecimal threshold, String message) {
         return value -> {
             if (null == value || value.compareTo(threshold) < 0) {

@@ -28,6 +28,8 @@ public abstract class ValidatorAbstraction<E> implements Validator<E> {
     protected final List<ValidatorField<?>> validatorFields = new LinkedList<>();
 
     /**
+     * Creates a validator for the given object.
+     *
      * @param value object to validate
      */
     public ValidatorAbstraction(E value) {

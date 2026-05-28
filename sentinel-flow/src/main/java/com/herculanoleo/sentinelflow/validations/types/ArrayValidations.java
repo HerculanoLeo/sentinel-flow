@@ -8,7 +8,14 @@ import com.herculanoleo.sentinelflow.validations.ValidationSupport;
  */
 public interface ArrayValidations extends ValidationSupport {
 
-    /** Validates the exact array length. */
+    /**
+     * Validates the exact array length.
+     *
+     * @param <T>     array element type
+     * @param size    expected length
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default <T> Validation<T[]> arraySizeEq(Integer size, String message) {
         return value -> {
             if (null == value || value.length == size) {
@@ -18,7 +25,14 @@ public interface ArrayValidations extends ValidationSupport {
         };
     }
 
-    /** Validates the minimum array length. */
+    /**
+     * Validates the minimum array length.
+     *
+     * @param <T>     array element type
+     * @param min     minimum length
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default <T> Validation<T[]> arraySizeMin(Integer min, String message) {
         return value -> {
             if (null == value || value.length >= min) {
@@ -28,7 +42,14 @@ public interface ArrayValidations extends ValidationSupport {
         };
     }
 
-    /** Validates the maximum array length. */
+    /**
+     * Validates the maximum array length.
+     *
+     * @param <T>     array element type
+     * @param max     maximum length
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default <T> Validation<T[]> arraySizeMax(Integer max, String message) {
         return value -> {
             if (null == value || value.length <= max) {

@@ -15,6 +15,8 @@ import java.util.List;
 public class ValidatorImpl<E> extends ValidatorAbstraction<E> {
 
     /**
+     * Creates a validator for the given object.
+     *
      * @param value object to validate
      */
     public ValidatorImpl(E value) {
@@ -27,6 +29,8 @@ public class ValidatorImpl<E> extends ValidatorAbstraction<E> {
     }
 
     /**
+     * Returns registered field validators.
+     *
      * @return registered field validators (for testing)
      */
     protected List<ValidatorField<?>> getValidatorFields() {

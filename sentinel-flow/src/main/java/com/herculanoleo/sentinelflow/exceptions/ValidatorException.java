@@ -11,9 +11,12 @@ import java.util.Collection;
  */
 public class ValidatorException extends Exception {
 
+    /** Validation errors grouped by field name. */
     private final Collection<ValidatorFieldErrorMessages> fieldErrors;
 
     /**
+     * Creates a validation exception with field errors.
+     *
      * @param message     general error message
      * @param fieldErrors validation errors grouped by field
      */
@@ -23,6 +26,8 @@ public class ValidatorException extends Exception {
     }
 
     /**
+     * Returns validation errors grouped by field name.
+     *
      * @return validation errors grouped by field name
      */
     public Collection<ValidatorFieldErrorMessages> getFieldErrors() {

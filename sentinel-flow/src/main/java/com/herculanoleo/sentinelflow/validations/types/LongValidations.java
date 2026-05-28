@@ -12,7 +12,13 @@ import java.util.Objects;
  */
 public interface LongValidations extends ValidationSupport {
 
-    /** @see IntegerValidations#eq(Integer, String) */
+    /**
+     * Validates that the value is equal to the expected value.
+     *
+     * @param eq      expected value
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<Long> eq(Long eq, String message) {
         return value -> {
             if (Objects.equals(value, eq)) {
@@ -22,7 +28,13 @@ public interface LongValidations extends ValidationSupport {
         };
     }
 
-    /** @see IntegerValidations#min(Integer, String) */
+    /**
+     * Validates that the value is greater than or equal to the minimum.
+     *
+     * @param min     minimum inclusive value
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<Long> min(Long min, String message) {
         return value -> {
             if (null == value || value >= min) {
@@ -32,7 +44,13 @@ public interface LongValidations extends ValidationSupport {
         };
     }
 
-    /** @see IntegerValidations#max(Integer, String) */
+    /**
+     * Validates that the value is less than or equal to the maximum.
+     *
+     * @param max     maximum inclusive value
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<Long> max(Long max, String message) {
         return value -> {
             if (null == value || value <= max) {
@@ -42,7 +60,14 @@ public interface LongValidations extends ValidationSupport {
         };
     }
 
-    /** @see IntegerValidations#between(Integer, Integer, String) */
+    /**
+     * Validates that the value is within the inclusive range.
+     *
+     * @param min     minimum inclusive value
+     * @param max     maximum inclusive value
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<Long> between(Long min, Long max, String message) {
         return value -> {
             if (null == value || (value >= min && value <= max)) {
@@ -52,7 +77,13 @@ public interface LongValidations extends ValidationSupport {
         };
     }
 
-    /** @see IntegerValidations#gt(Integer, String) */
+    /**
+     * Validates that the value is greater than the threshold.
+     *
+     * @param threshold threshold value
+     * @param message   error message when validation fails
+     * @return validation rule
+     */
     default Validation<Long> gt(Long threshold, String message) {
         return value -> {
             if (null == value || value > threshold) {
@@ -62,7 +93,13 @@ public interface LongValidations extends ValidationSupport {
         };
     }
 
-    /** @see IntegerValidations#lt(Integer, String) */
+    /**
+     * Validates that the value is less than the threshold.
+     *
+     * @param threshold threshold value
+     * @param message   error message when validation fails
+     * @return validation rule
+     */
     default Validation<Long> lt(Long threshold, String message) {
         return value -> {
             if (null == value || value < threshold) {

@@ -11,7 +11,12 @@ import org.apache.commons.lang3.StringUtils;
  */
 public interface BrazilValidations extends ValidationSupport {
 
-    /** Validates a CPF number. */
+    /**
+     * Validates a CPF number.
+     *
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<String> cpf(String message) {
         return value -> {
             if (StringUtils.isNotBlank(value)) {
@@ -25,7 +30,12 @@ public interface BrazilValidations extends ValidationSupport {
         };
     }
 
-    /** Validates a CNPJ number. */
+    /**
+     * Validates a CNPJ number.
+     *
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<String> cnpj(String message) {
         return value -> {
             if (StringUtils.isNotBlank(value)) {
@@ -43,6 +53,9 @@ public interface BrazilValidations extends ValidationSupport {
      * Validates a CEP (8 digits).
      *
      * <p>Non-digit characters are ignored, so masked values such as {@code 12345-678} are accepted.
+     *
+     * @param message error message when validation fails
+     * @return validation rule
      */
     default Validation<String> cep(String message) {
         return value -> {
@@ -56,7 +69,12 @@ public interface BrazilValidations extends ValidationSupport {
         };
     }
 
-    /** Validates a Brazilian phone number (10 or 11 digits with valid DDD). */
+    /**
+     * Validates a Brazilian phone number (10 or 11 digits with valid DDD).
+     *
+     * @param message error message when validation fails
+     * @return validation rule
+     */
     default Validation<String> phoneBr(String message) {
         return value -> {
             if (StringUtils.isNotBlank(value)) {

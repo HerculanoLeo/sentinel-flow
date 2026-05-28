@@ -11,6 +11,10 @@ import com.herculanoleo.sentinelflow.validations.ValidationFactory;
  */
 public class ValidationFactoryImpl implements ValidationFactory {
 
+    /** Creates a new validation factory. */
+    public ValidationFactoryImpl() {
+    }
+
     @Override
     public ValidationResult valid() {
         return new ValidationResult(true, null);
