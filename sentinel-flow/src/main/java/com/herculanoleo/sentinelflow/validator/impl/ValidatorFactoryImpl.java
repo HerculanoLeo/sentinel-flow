@@ -3,6 +3,9 @@ package com.herculanoleo.sentinelflow.validator.impl;
 import com.herculanoleo.sentinelflow.validator.ValidatorFactory;
 import com.herculanoleo.sentinelflow.validator.Validator;
 
+/**
+ * Default implementation of {@link ValidatorFactory}.
+ */
 public class ValidatorFactoryImpl implements ValidatorFactory {
 
     @Override

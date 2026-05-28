@@ -19,7 +19,7 @@ It promotes a more readable and expressive coding style for validations through 
 
 * **Functional Approach:** Defines validation rules as functions (lambdas), making the logic clear and concise.
 * **Fluent API:** Chain validations naturally and legibly, improving code expressiveness.
-* **Rich Set of Validations:** Includes common validations for Strings, Numbers, Dates, Objects, and specific Brazilian formats (CPF, CNPJ, CEP).
+* **Rich Set of Validations:** Strings, numbers, dates/times, booleans, collections, maps, arrays, comparables, and Brazilian formats (CPF, CNPJ, CEP, phone).
 * **Customizable Error Messages:** Easy configuration of meaningful error messages for each validation rule.
 * **Type-Safe:** Validations are applied to specific types, leveraging Java's type safety to prevent runtime errors.
 * **Extensible:** Allows easy creation of new custom validation rules, adapting the library to your project's specific needs.
@@ -49,6 +49,169 @@ implementation 'com.herculanoleo:sentinel-flow:X.Y.Z'
 *(Note: Replace X.Y.Z with the latest library version.)*
 
 To download the dependency using GitHub packages, follow these steps: [Working with the Apache Maven registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry) 
+
+## Available Validations
+
+> Full reference with index: [docs/README.md](docs/README.md)
+
+All rules are available through a single `ValidationFactory` instance (for example, `new ValidationFactoryImpl()`). Use them with `.add(validations.method(...))` inside the validator fluent API.
+
+**Optional fields:** For most validations, `null` (and blank strings, where applicable) is considered valid. Combine with `isNotNull` / `isNotBlank` when the field is required. Exceptions: `isTrue` and `isFalse` require an explicit boolean value.
+
+### Object (`<T>`)
+
+| Method | Description |
+|--------|-------------|
+| `isNotNull(message)` | Value must not be null |
+| `isNull(message)` | Value must be null |
+| `isClass(message, clazz)` | Value must be an instance of the given class |
+| `oneOf(allowed, message)` | Value must be contained in the set |
+| `custom(predicate, message)` | Custom rule via `Predicate<T>` |
+
+### String
+
+| Method | Description |
+|--------|-------------|
+| `isNotBlank(message)` | Must not be null, empty, or whitespace |
+| `isBlank(message)` | Must be null, empty, or whitespace |
+| `lengthEq(length, message)` | Exact length |
+| `lengthMin(length, message)` | Minimum length |
+| `lengthMax(length, message)` | Maximum length |
+| `email(message)` | Valid email format |
+| `onlyNumbers(message)` | Digits only |
+| `url(message)` | Valid URL (scheme + host) |
+| `https(message)` | Valid HTTPS URL |
+| `fileExtension(extensions, message)` | File extension in the allowed set |
+| `matches(pattern, message)` | Matches the given `Pattern` |
+| `regex(pattern, message)` | Matches the given regex string |
+| `uuid(message)` | Valid UUID |
+| `alpha(message)` | Letters only (A–Z, a–z) |
+| `alphaNumeric(message)` | Letters and digits only |
+| `slug(message)` | Kebab-case slug (`my-page-title`) |
+| `ipAddress(message)` | Valid IPv4 or IPv6 address |
+
+### Boolean
+
+| Method | Description |
+|--------|-------------|
+| `isTrue(message)` | Value must be `Boolean.TRUE` |
+| `isFalse(message)` | Value must be `Boolean.FALSE` |
+
+### Integer
+
+| Method | Description |
+|--------|-------------|
+| `eq(value, message)` | Equal to |
+| `min(value, message)` | Greater than or equal to |
+| `max(value, message)` | Less than or equal to |
+| `between(min, max, message)` | Within inclusive range |
+| `gt(threshold, message)` | Greater than |
+| `lt(threshold, message)` | Less than |
+| `positive(message)` | Greater than zero |
+| `negative(message)` | Less than zero |
+| `zero(message)` | Equal to zero |
+
+### Long / Double / BigDecimal
+
+Same methods as `Integer`, with the corresponding numeric type:
+
+| Method | Description |
+|--------|-------------|
+| `eq(value, message)` | Equal to |
+| `min(value, message)` | Greater than or equal to |
+| `max(value, message)` | Less than or equal to |
+| `between(min, max, message)` | Within inclusive range |
+| `gt(threshold, message)` | Greater than |
+| `lt(threshold, message)` | Less than |
+
+> **Note:** `positive`, `negative`, and `zero` shortcuts exist only for `Integer`. For other numeric types, use `gt`, `lt`, or `eq` (for example, `gt(0L, message)`).
+
+### LocalDate
+
+| Method | Description |
+|--------|-------------|
+| `eq(value, message)` | Equal to |
+| `min(value, message)` | On or after |
+| `max(value, message)` | On or before |
+| `between(min, max, message)` | Within inclusive range |
+| `isPast(message)` | Before today |
+| `isFuture(message)` | After today |
+
+### LocalTime
+
+| Method | Description |
+|--------|-------------|
+| `eq(value, message)` | Equal to |
+| `min(value, message)` | On or after |
+| `max(value, message)` | On or before |
+
+### LocalDateTime
+
+| Method | Description |
+|--------|-------------|
+| `eq(value, message)` | Equal to |
+| `min(value, message)` | On or after |
+| `max(value, message)` | On or before |
+| `between(min, max, message)` | Within inclusive range |
+| `isPastDateTime(message)` | Before now |
+| `isFutureDateTime(message)` | After now |
+
+### OffsetDateTime
+
+| Method | Description |
+|--------|-------------|
+| `eq(value, message)` | Equal to |
+| `min(value, message)` | On or after |
+| `max(value, message)` | On or before |
+| `isPastOffsetDateTime(message)` | Before now |
+| `isFutureOffsetDateTime(message)` | After now |
+
+### Comparable (generic)
+
+For any type implementing `Comparable<T>` (for example, `OffsetDateTime`, `Instant`, `ZonedDateTime`):
+
+| Method | Description |
+|--------|-------------|
+| `comparableEq(value, message)` | Equal to |
+| `comparableMin(value, message)` | Greater than or equal to |
+| `comparableMax(value, message)` | Less than or equal to |
+| `comparableBetween(min, max, message)` | Within inclusive range |
+
+### Collection (`Collection<?>`)
+
+| Method | Description |
+|--------|-------------|
+| `sizeEq(size, message)` | Exact size |
+| `sizeMin(min, message)` | Minimum size |
+| `sizeMax(max, message)` | Maximum size |
+| `isEmpty(message)` | Must be empty |
+| `isNotEmpty(message)` | Must not be empty |
+| `contains(element, message)` | Must contain the element |
+
+### Map (`Map<?, ?>`)
+
+| Method | Description |
+|--------|-------------|
+| `mapSizeEq(size, message)` | Exact entry count |
+| `mapSizeMin(min, message)` | Minimum entry count |
+| `mapSizeMax(max, message)` | Maximum entry count |
+
+### Array (`T[]`)
+
+| Method | Description |
+|--------|-------------|
+| `arraySizeEq(size, message)` | Exact length |
+| `arraySizeMin(min, message)` | Minimum length |
+| `arraySizeMax(max, message)` | Maximum length |
+
+### Brazil
+
+| Method | Description |
+|--------|-------------|
+| `cpf(message)` | Valid CPF |
+| `cnpj(message)` | Valid CNPJ |
+| `cep(message)` | Valid CEP (8 digits; accepts mask, e.g. `12345-678`) |
+| `phoneBr(message)` | Valid Brazilian phone (10 or 11 digits) |
 
 ## How to Use (Traditional Java Application)
 
