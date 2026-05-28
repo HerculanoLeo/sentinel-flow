@@ -265,7 +265,7 @@ For any type implementing `Comparable<T>` (for example, `OffsetDateTime`, `Insta
 
 ## How to Use (Traditional Java Application)
 
-Validation is performed through the `Validate` interface, which is a `@FunctionalInterface`. You implement the validation logic using the `ValidatorFactory` and `ValidationFactory` factories.n an application without a dependency injection framework, you can instantiate the default implementations directly.
+Validation is performed through the `Validate` interface, which is a `@FunctionalInterface`. You implement the validation logic using the `ValidatorFactory` and `ValidationFactory` factories. An application without a dependency injection framework, you can instantiate the default implementations directly.
 
 **Basic Example:**
 
