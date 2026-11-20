@@ -28,8 +28,8 @@
         </repository>
 
         <repository>
-            <id>nexus3-herculanoleo</id>
-            <url>https://nexus3.lodh8.com/repository/maven-releases/</url>
+            <id>artifacts</id>
+            <url>https://artifacts.lodh8.com/maven/maven-releases/</url>
         </repository>
     </repositories>
 
